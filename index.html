@@ -3,112 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Global LLM</title>
+<title>Exo-Cog Unifié</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <h1>Exo-Cog – Version Unifiée</h1>
 
-<div id="sidebar" class="sidebar">
-  <button id="toggleSidebar">☰</button>
-  <nav>
-    <ul>
-      <li><a href="#tasksSection">📝 Tâches & Commentaires</a></li>
-      <li><a href="#modulesSection">📊 Modules LLM</a></li>
-    </ul>
-  </nav>
-</div>
+  <div class="container">
 
-<main>
-  <!-- Stack 1 -->
-  <section id="tasksSection" class="section">
-    <header>
-      <h1>🧠 Dashboard Tâches</h1>
-      <p>Ajoute, archive, commente et envoie tes tâches à un LLM.</p>
-      <div class="llm-selector">
-        <label for="llmSelect">Choisir LLM :</label>
-        <select id="llmSelect">
-          <option value="https://chat.openai.com/">ChatGPT</option>
-          <option value="https://chat.deepseek.com/">DeepSeek Chat</option>
-          <option value="https://chat.mistral.ai/chat">Mistral Chat</option>
-          <option value="https://claude.ai/">Claude AI</option>
-          <option value="https://www.perplexity.ai/">Perplexity</option>
-        </select>
-      </div>
-    </header>
-
-    <div class="input-section">
-      <input type="text" id="taskInput" placeholder="Ex : Appeler le fournisseur, revoir le doc…">
-      <div class="buttons-row">
-        <button id="addBtn">➕ Ajouter</button>
-        <button id="archiveBtn">📦 Archiver</button>
-        <button id="clearBtn">🧹 Tout nettoyer</button>
-      </div>
-
-      <div class="prompt-panel">
-        <h2>⚡ Prompts</h2>
-        <div id="promptsContainer"></div>
-      </div>
-
-      <textarea id="jsonTextarea" placeholder="Colle ton JSON ici…" rows="6"></textarea>
-      <button id="sendToStack2Btn">📤 Envoyer à Stack 2</button>
-    </div>
-
-    <aside class="task-list">
-      <h2>🗂 Historique des tâches</h2>
+    <!-- Stack 1 : Input & Gestion Tâches -->
+    <div class="stack stack1">
+      <h2>Gestion des tâches</h2>
+      <input type="text" id="taskInput" placeholder="Nouvelle tâche…">
+      <button id="addBtn">Ajouter</button>
+      <div class="buttons-row"></div>
       <ul id="tasksContainer"></ul>
-    </aside>
-  </section>
 
-  <!-- Stack 2 -->
-  <section id="modulesSection" class="section">
-    <h1>📊 Modules LLM</h1>
+      <h3>Prompts LLM</h3>
+      <select id="llmSelect">
+        <option value="https://chat.openai.com/">ChatGPT</option>
+        <option value="https://bison.ai/">Mistral / Bison</option>
+      </select>
+      <div id="promptsContainer"></div>
+      <p id="copiedMsg" style="display:none;color:green;">✅ Prompt copié !</p>
 
-    <div class="module" id="jalonsModule">
-      <h2>Jalons & Sous-actions</h2>
-      <ul id="jalonsList"></ul>
+      <button id="pasteDownloadBtn">Coller JSON & Télécharger</button>
+      <input type="file" id="uploadJson" accept=".json">
     </div>
 
-    <div class="module" id="messagesModule">
-      <h2>Messages / Emails</h2>
-      <table id="messagesTable">
-        <thead>
-          <tr><th>À traiter</th><th>Destinataire</th><th>Sujet</th><th>Texte</th></tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <div class="mail-actions">
-        <select id="mailPromptSelect">
-          <option value="1">Template formel</option>
-          <option value="2">Template amical</option>
-        </select>
-        <button id="generateMailBtn">Générer Mail GPT</button>
+    <!-- Stack 2 : Modules / Traitement -->
+    <div class="stack stack2">
+      <h2>Modules / Vue structurée</h2>
+
+      <div class="module" id="jalonsModule">
+        <h3>Jalons & Sous-actions</h3>
+        <ul id="jalonsList"></ul>
+      </div>
+
+      <div class="module" id="messagesModule">
+        <h3>Messages / Emails</h3>
+        <table>
+          <thead>
+            <tr><th>✓</th><th>Destinataire</th><th>Sujet</th><th>Texte</th></tr>
+          </thead>
+          <tbody id="messagesList"></tbody>
+        </table>
+      </div>
+
+      <div class="module" id="rdvModule">
+        <h3>Rendez-vous / Créneaux</h3>
+        <ul id="rdvList"></ul>
+      </div>
+
+      <div class="module" id="livrablesModule">
+        <h3>Livrables à préparer</h3>
+        <ul id="livrablesList"></ul>
       </div>
     </div>
 
-    <div class="module" id="rdvModule">
-      <h2>Rendez-vous / Créneaux</h2>
-      <ul id="rdvList"></ul>
-    </div>
-
-    <div class="module" id="autresModule">
-      <h2>Autres ressources</h2>
-      <ul id="autresList"></ul>
-    </div>
-
-    <div class="module" id="livrablesModule">
-      <h2>Livrables à préparer</h2>
-      <ul id="livrablesList"></ul>
-      <div class="livrable-actions">
-        <select id="livrablePromptSelect">
-          <option value="1">Plan détaillé</option>
-          <option value="2">Résumé exécutif</option>
-          <option value="3">Checklist rapide</option>
-        </select>
-        <button id="generateLivrableBtn">Générer contenu LLM</button>
-      </div>
-    </div>
-  </section>
-</main>
+  </div>
 
 <script src="script.js"></script>
 </body>
