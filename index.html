@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Global LLM</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="sidebar" class="sidebar">
+  <button id="toggleSidebar">☰</button>
+  <nav>
+    <ul>
+      <li><a href="#tasksSection">📝 Tâches & Commentaires</a></li>
+      <li><a href="#modulesSection">📊 Modules LLM</a></li>
+    </ul>
+  </nav>
+</div>
+
+<main>
+  <!-- Stack 1 -->
+  <section id="tasksSection" class="section">
+    <header>
+      <h1>🧠 Dashboard Tâches</h1>
+      <p>Ajoute, archive, commente et envoie tes tâches à un LLM.</p>
+      <div class="llm-selector">
+        <label for="llmSelect">Choisir LLM :</label>
+        <select id="llmSelect">
+          <option value="https://chat.openai.com/">ChatGPT</option>
+          <option value="https://chat.deepseek.com/">DeepSeek Chat</option>
+          <option value="https://chat.mistral.ai/chat">Mistral Chat</option>
+          <option value="https://claude.ai/">Claude AI</option>
+          <option value="https://www.perplexity.ai/">Perplexity</option>
+        </select>
+      </div>
+    </header>
+
+    <div class="input-section">
+      <input type="text" id="taskInput" placeholder="Ex : Appeler le fournisseur, revoir le doc…">
+      <div class="buttons-row">
+        <button id="addBtn">➕ Ajouter</button>
+        <button id="archiveBtn">📦 Archiver</button>
+        <button id="clearBtn">🧹 Tout nettoyer</button>
+      </div>
+
+      <div class="prompt-panel">
+        <h2>⚡ Prompts</h2>
+        <div id="promptsContainer"></div>
+      </div>
+
+      <textarea id="jsonTextarea" placeholder="Colle ton JSON ici…" rows="6"></textarea>
+      <button id="sendToStack2Btn">📤 Envoyer à Stack 2</button>
+    </div>
+
+    <aside class="task-list">
+      <h2>🗂 Historique des tâches</h2>
+      <ul id="tasksContainer"></ul>
+    </aside>
+  </section>
+
+  <!-- Stack 2 -->
+  <section id="modulesSection" class="section">
+    <h1>📊 Modules LLM</h1>
+
+    <div class="module" id="jalonsModule">
+      <h2>Jalons & Sous-actions</h2>
+      <ul id="jalonsList"></ul>
+    </div>
+
+    <div class="module" id="messagesModule">
+      <h2>Messages / Emails</h2>
+      <table id="messagesTable">
+        <thead>
+          <tr><th>À traiter</th><th>Destinataire</th><th>Sujet</th><th>Texte</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="mail-actions">
+        <select id="mailPromptSelect">
+          <option value="1">Template formel</option>
+          <option value="2">Template amical</option>
+        </select>
+        <button id="generateMailBtn">Générer Mail GPT</button>
+      </div>
+    </div>
+
+    <div class="module" id="rdvModule">
+      <h2>Rendez-vous / Créneaux</h2>
+      <ul id="rdvList"></ul>
+    </div>
+
+    <div class="module" id="autresModule">
+      <h2>Autres ressources</h2>
+      <ul id="autresList"></ul>
+    </div>
+
+    <div class="module" id="livrablesModule">
+      <h2>Livrables à préparer</h2>
+      <ul id="livrablesList"></ul>
+      <div class="livrable-actions">
+        <select id="livrablePromptSelect">
+          <option value="1">Plan détaillé</option>
+          <option value="2">Résumé exécutif</option>
+          <option value="3">Checklist rapide</option>
+        </select>
+        <button id="generateLivrableBtn">Générer contenu LLM</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
