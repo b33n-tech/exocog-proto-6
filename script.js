@@ -1,36 +1,18 @@
-// --- Sidebar toggle ---
-const sidebar = document.getElementById("sidebar");
-const toggleBtn = document.getElementById("toggleSidebar");
-const mainContent = document.querySelector("main");
-toggleBtn.addEventListener("click", ()=>{
-  if(sidebar.style.transform==="translateX(-100%)"){
-    sidebar.style.transform="translateX(0)";
-    mainContent.style.marginLeft="240px";
-  } else {
-    sidebar.style.transform="translateX(-100%)";
-    mainContent.style.marginLeft="0";
-  }
-});
-
-// --- Stack 1: Tasks ---
-const taskInput = document.getElementById("taskInput");
-const addBtn = document.getElementById("addBtn");
-const archiveBtn = document.getElementById("archiveBtn");
-const clearBtn = document.getElementById("clearBtn");
-const tasksContainer = document.getElementById("tasksContainer");
-const promptsContainer = document.getElementById("promptsContainer");
-const llmSelect = document.getElementById("llmSelect");
-const jsonTextarea = document.getElementById("jsonTextarea");
-const sendToStack2Btn = document.getElementById("sendToStack2Btn");
-
-let tasks = JSON.parse(localStorage.getItem("tasks"))||[];
-
-// --- Render tasks ---
-function renderTasks(){
-  tasksContainer.innerHTML="";
-  tasks.forEach((t,i)=>{
-    const li = document.createElement("li"); li.className="task-item";
-    const span = document.createElement("span"); span.className="task-text"; span.textContent=t.text;
-    span.addEventListener("click", ()=>{ t.done=!t.done; li.style.textDecoration=t.done?"line-through":"none"; saveTasks(); });
-
-    const commentUl = document.create
+body { font-family: 'Inter', Arial, sans-serif; margin: 0; padding: 20px; background:#f0f2f5; color:#333; }
+h1 { text-align:center; margin-bottom:25px; }
+.container { display:flex; gap:20px; flex-wrap:wrap; }
+.stack { background:white; padding:20px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08); flex:1; min-width:350px; }
+.stack1 { border-left:5px solid #00aaff; }
+.stack2 { border-left:5px solid #2ecc71; }
+ul { list-style:none; padding-left:0; }
+li { margin:8px 0; }
+input[type=text], select { padding:6px; width:80%; margin-bottom:10px; border-radius:6px; border:1px solid #ccc; }
+button { padding:6px 12px; margin-left:5px; border:none; border-radius:8px; cursor:pointer; background:linear-gradient(135deg,#00aaff,#00d4ff); color:white; font-weight:600; }
+.module { margin-top:20px; }
+table { width:100%; border-collapse:collapse; margin-top:10px; }
+th,td { border:1px solid #eee; padding:8px; }
+th { background:#00aaff; color:white; text-align:left; }
+tbody tr:nth-child(odd){ background:#f9f9f9; }
+.comment-section { display:none; flex-direction:column; margin-top:5px; }
+.comment-input { display:flex; gap:5px; margin-top:5px; }
+.comment-list { padding-left:15px; }
